@@ -1,169 +1,95 @@
-# 09 Servers and APIs: Weather Dashboard
+# <Weather Dashboard>
 
-## Your Task
+![Node.js](https://img.shields.io/badge/node.js-v16.13.0-green)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Build Status](https://github.com/username/repository/workflows/Node.js%20CI/badge.svg)
+![Dependencies](https://img.shields.io/david/username/repository)
+![Express.js](https://img.shields.io/badge/express.js-4.x-blue)
 
-External APIs allow developers to access their data and functionality by making requests with specific parameters to a URL. Developers are often tasked with retrieving data from another application's API and using it in their context, frequently consuming this data via a server.
+## Description
 
-Your challenge is to build a weather dashboard application that calls the OpenWeather API and renders data in the browser.
+This project is an Express.js REST API that allows users to retrieve weather information for cities and maintain a search history. The application interacts with external weather APIs to provide up-to-date weather data, and stores the cities that users search for in a simple JSON-based database. This allows users to track and manage their previous searches.
 
-The application’s front end has already been created. It's your job to build the back end, connect the two, and then deploy the entire application to Render.
+## Table of contents
 
-- Use the [5-day weather forecast API](https://openweathermap.org/forecast5) to retrieve weather data for cities.
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+- [Features](#features)
+- [How to Contribute](#how-to-contribute)
+- [Tests](#tests)
+- [Questions](#questions)
 
-- The base URL should look like the following:
+## Installation
 
-  ```url
-  https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
-  ```
+1. Clone the repository
 
-- After registering for a new API key, you may need to wait up to 2 hours for that API key to activate.
+   ```bash
+   git clone https://github.com/Romantech91/Weather-Dashboard.git
 
-- For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+   ```
 
-## User Story
+2. Install dependencies
 
-```md
-AS A traveler
+   ```bash
+   npm install
 
-I WANT to see the weather outlook for multiple cities
+   ```
 
-SO THAT I can plan a trip accordingly
-```
+3. Run the application
+   ```bash
+   npm start
+   ```
 
-## Acceptance Criteria
+## Usage
 
-```md
-GIVEN a weather dashboard with form inputs
+- Weather Tracking: Users can quickly check the weather for multiple cities and revisit their searches later.
 
-WHEN I search for a city
+- Simple History Management: The API offers endpoints to manage (add, retrieve, delete) the search history, making it a useful backend service for applications that require weather data and historical tracking.
 
-THEN I am presented with current and future conditions for that city, and that city is added to the search history
+- Learning Resource: The project serves as a good example for beginners who want to learn how to create REST APIs with Express.js, manage data storage with JSON files, and integrate third-party services like weather APIs.
 
-WHEN I view current weather conditions for that city
+## Credits
 
-THEN I am presented with the city name, the date, an icon representation of weather conditions, a description of the weather for the icon's alt tag, the temperature, the humidity, and the wind speed
+N/A
 
-WHEN I view future weather conditions for that city
+## License
 
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+MIT License
 
-WHEN I click on a city in the search history
+Copyright (c) 2024 Romantech91
 
-THEN I am again presented with current and future conditions for that city
-```
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-## Mock-Up
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-The following image shows the web application's appearance and functionality:
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
-![The weather app includes a search option, a list of cities, and a 5-day forecast and current weather conditions for Atlanta ](./Assets/09-servers-and-apis-homework-demo.png)
+## Features
 
-## Getting Started
+- Weather Data Retrieval: The API fetches current weather data for a given city, using reliable external weather services.
 
-On the back end, the application should include a `searchHistory.json` file that will be used to store and retrieve cities using the `fs` module.
+- Search History Management: Each time a user searches for a city's weather, the city is saved to a search history. This history can be retrieved to see all past searches, or individual cities can be deleted from the history.
 
-The following HTML route should be created:
+- JSON-Based Storage: The search history is stored in a local JSON file, making it easy to manage and lightweight. This is ideal for small-scale applications and quick deployments.
 
-- `GET *` should return the `index.html` file.
+## How to Contribute
 
-The following API routes should be created:
+## Tests
 
-- `GET /api/weather/history` should read the `searchHistory.json` file and return all saved cities as JSON.
+## Questions
 
-- `POST /api/weather` should receive a city name to save on the request body, add it to the `searchHistory.json` file, and then return associated weather data to the client. You'll need to find a way to give each city name a unique id when it's saved (look into npm packages that could do this for you).
-
-Refer to the [Full-Stack Blog on deploying to Render](https://coding-boot-camp.github.io/full-stack/render/render-deployment-guide) and the [Render documentation on setting environment variables](https://docs.render.com/configure-environment-variables).
-
----
-
-## 💡 Hints
-
-- Using the 5-day weather forecast API, you'll notice that you'll need to pass in coordinates instead of just a city name. Using the OpenWeatherMap APIs, how could we retrieve geographical coordinates given a city name?
-
-- How could we make the OpenWeather API calls server-side, parse the data, and then send the parsed data client-side?
-
-## 🏆 Bonus
-
-This application offers the DELETE functionality on the front end. As a bonus, try to add the DELETE route to the application using the following guideline:
-
-- `DELETE /api/weather/history/:id` should receive a route parameter that contains the id of a city name to delete. To delete a city, you'll need to read all the cities from the `searchHistory.json` file, remove the city with the given `id` property, and then rewrite the cities to the `searchHistory.json` file.
-
----
-
-## Grading Requirements
-
-> **Note** If a Challenge assignment submission is marked as “0”, it's considered incomplete and won't count toward your graduation requirements. Examples of incomplete submissions include the following:
->
-> - A repository that has no code.
->
-> - A repository that includes a unique name but nothing else.
->
-> - A repository that includes only a README file but nothing else.
->
-> - A repository that includes only starter code.
-
-This Challenge is graded based on the following criteria:
-
-### Technical Acceptance Criteria: 40%
-
-The Challenge satisfies all of the above acceptance criteria, plus the following:
-
-- Application uses the OpenWeather API to retrieve weather data.
-
-- Application back end must store cities that have a unique id in a JSON file.
-
-- Application must be deployed to Render.
-
-### Deployment: 32%
-
-The Challenge satisfies all of the above acceptance criteria, plus the following:
-
-- Application deployed at live URL.
-
-- Application loads with no errors.
-
-- Application GitHub URL submitted.
-
-- GitHub repository that contains application code.
-
-### Application Quality: 15%
-
-The Challenge satisfies all of the above acceptance criteria, plus the following:
-
-- Application user experience is intuitive and easy to navigate.
-
-- Application user interface style is clean and polished.
-
-- Application resembles the mock-up functionality provided in the Challenge instructions.
-
-### Repository Quality: 13%
-
-The Challenge satisfies all of the above acceptance criteria, plus the following:
-
-- Repository has a unique name.
-
-- Repository follows best practices for file structure and naming conventions.
-
-- Repository follows best practices for class/id naming conventions, indentation, quality comments, etc.
-
-- Repository contains multiple descriptive commit messages.
-
-- Repository contains quality README file with description, screenshot, and link to deployed application.
-
-### Bonus: +10 Points
-
-Fulfilling the following can add up to 10 points to your grade. Note that the highest grade you can achieve is still 100:
-
-- Application allows users to delete cities.
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-- The URL of the functional, deployed application.
-
-- The URL of the GitHub repository. Give the repository a unique name and include a README file describing the project.
-
----
-
-© 2024 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+If you have any questions, please reach out to me at victor_roman1198@yahoo.com or visit my GitHub profile at @Romantech91.
