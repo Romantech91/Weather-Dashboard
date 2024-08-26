@@ -1,5 +1,5 @@
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs/promises';
+
 import { v4 as uuidv4 } from 'uuid';
 
 // TODO: Define a City class with name and id properties
@@ -16,43 +16,45 @@ class City {
 
 // TODO: Complete the HistoryService class
 class HistoryService {
-  private async read(): Promise<string> {
-    try {
-      return new Promise<string>((resolve, reject) => {
-        fs.readFile(path.join(__dirname, 'db', 'searchHistory.json'), 'utf-8', (err, data) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(data);
-          }
-        });
-      });
-  } catch (error) {
-    console.error('Failed to read search history', error);
-    throw error;
-  }
+  private async read() {
+  //   try {
+  //     return new Promise<string>((resolve, reject) => {
+  //       fs.readFile(path.join(__dirname, 'db', 'db.json'), 'utf-8', (err, data) => {
+  //         if (err) {
+  //           reject(err);
+  //         } else {
+  //           resolve(data);
+  //         }
+  //       });
+  //     });
+  // } catch (error) {
+  //   console.error('Failed to read search history', error);
+  //   throw error;
+  // }
+  return await fs.readFile ('./db/db.json', {flag: "a+", encoding: 'utf-8'});
   }
 
-  private async write(cities: City[]): Promise<void> {
-    try {
-    await new Promise<void>((resolve, reject) => {
-      fs.writeFile(
-        path.join(__dirname, 'db', 'searchHistory.json'),
-        JSON.stringify(cities, null, 2),
-        (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        }
-      );
-    });
-  } catch (error) {
-    console.error('Failed to write search history', error);
-    throw error;
-  }
-  }
+  private async write(cities: City[]) {
+  //   try {
+  //   await new Promise<void>((resolve, reject) => {
+  //     fs.writeFile(
+  //       path.join(__dirname, 'db', 'db.json'),
+  //       JSON.stringify(cities, null, 2),
+  //       (err) => {
+  //         if (err) {
+  //           reject(err);
+  //         } else {
+  //           resolve();
+  //         }
+  //       }
+  //     );
+  //   });
+  // } catch (error) {
+  //   console.error('Failed to write search history', error);
+  //   throw error;
+  // }
+  return await fs.writeFile('./db/db.json', JSON.stringify(cities, null, 2), 'utf-8');
+   }
 
   async getCities(): Promise<City[]> {
     try {

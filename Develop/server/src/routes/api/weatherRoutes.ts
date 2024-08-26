@@ -7,9 +7,10 @@ const router = Router();
 // POST Request with city name to retrieve weather data
 router.post('/', async (req: Request, res: Response) => {
   try {
-    const { city } = req.body;
-    const weatherData = await WeatherService.getWeatherForCity(city);
-    const history = await HistoryService.addCity(city);
+    console.log(req.body);
+    const { cityName } = req.body;
+    const weatherData = await WeatherService.getWeatherForCity(cityName);
+    const history = await HistoryService.addCity(cityName);
     res.status(200).json({ weatherData, history });
   } catch (error) {
     res.status(400).json({ error: error instanceof Error ? error.message : error });
